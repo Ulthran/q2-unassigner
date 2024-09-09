@@ -2,9 +2,9 @@ name: Test and lint
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "master"]
   push:
-    branches: ["main"]
+    branches: ["main", "master"]
 
 jobs:
   build-and-test-qiime2-metagenome-2024-5:
