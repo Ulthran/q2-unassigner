@@ -7,9 +7,10 @@
 # ----------------------------------------------------------------------------
 
 from qiime2.plugin import Citations, Plugin
+from q2_types.feature_data import DNAFastaFormat
 from q2_types.feature_table import FeatureTable, Frequency
 from q2_unassigner import __version__
-from q2_unassigner._methods import duplicate_table
+from q2_unassigner._methods import unassign
 
 citations = Citations.load("citations.bib", package="q2_unassigner")
 
@@ -20,22 +21,18 @@ plugin = Plugin(
     package="q2_unassigner",
     description="Evaluate consistency with named bacterial species for short 16S rRNA marker gene sequences",
     short_description="Unassigner",
-    # The plugin-level citation of 'Caporaso-Bolyen-2024' is provided as
-    # an example. You can replace this with citations to other references
-    # in citations.bib.
-    citations=[citations['Caporaso-Bolyen-2024']]
+    citations=[citations['Tanes2024Unassigner']]
 )
 
 plugin.methods.register_function(
-    function=duplicate_table,
-    inputs={'table': FeatureTable[Frequency]},
-    parameters={},
-    outputs=[('new_table', FeatureTable[Frequency])],
-    input_descriptions={'table': 'The feature table to be duplicated.'},
-    parameter_descriptions={},
-    output_descriptions={'new_table': 'The duplicated feature table.'},
-    name='Duplicate table',
-    description=("Create a copy of a feature table with a new uuid. "
-                 "This is for demonstration purposes only. 🧐"),
+    function=unassign,
+    inputs={'seqs': FeatureTable[Frequency]},
+    parameters={'output_fp': str},
+    outputs=[('unassigned', FeatureTable[Frequency])],
+    input_descriptions={'seqs': 'The sequences to unassign.'},
+    parameter_descriptions={'output_fp': 'The output directory.'},
+    output_descriptions={'unassigned': 'The unasigned sequences.'},
+    name='Unassign sequences',
+    description=("Run unassigner on input sequences."),
     citations=[]
 )
