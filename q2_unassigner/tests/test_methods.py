@@ -17,13 +17,14 @@ from q2_unassigner._methods import duplicate_table
 
 
 class DuplicateTableTests(TestPluginBase):
-    package = 'q2_unassigner.tests'
+    package = "q2_unassigner.tests"
 
     def test_simple1(self):
         in_table = pd.DataFrame(
             [[1, 2, 3, 4, 5], [9, 10, 11, 12, 13]],
-            columns=['abc', 'def', 'jkl', 'mno', 'pqr'],
-            index=['sample-1', 'sample-2'])
+            columns=["abc", "def", "jkl", "mno", "pqr"],
+            index=["sample-1", "sample-2"],
+        )
         observed = duplicate_table(in_table)
 
         expected = in_table
@@ -34,9 +35,10 @@ class DuplicateTableTests(TestPluginBase):
         # test table duplication with table loaded from file this time
         # (for demonstration purposes)
         in_table = transform(
-            self.get_data_path('table-1.biom'),
+            self.get_data_path("table-1.biom"),
             from_type=BIOMV100Format,
-            to_type=pd.DataFrame)
+            to_type=pd.DataFrame,
+        )
         observed = duplicate_table(in_table)
 
         expected = in_table

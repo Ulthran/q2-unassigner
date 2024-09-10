@@ -6,6 +6,7 @@ channels:
 dependencies:
   - qiime2-metagenome
   # Note 1: Add any additional conda dependencies here.
+  - unassigner
   - pip
   - pip:
   # Note 2: Add any additional pip dependencies here.
