@@ -12,7 +12,7 @@ from q2_types.feature_data import FeatureData, Sequence
 from q2_types.feature_table import FeatureTable, Frequency
 
 
-def run_command(cmd: list[str]) -> None:
+def run_command(cmd):
     print(
         "Running external command line application. This may print "
         "messages to stdout and/or stderr."
