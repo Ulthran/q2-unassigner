@@ -23,7 +23,9 @@ setup(
     description=description,
     url="https://github.com/PennChopMicrobiomeProgram/unassigner",
     entry_points={
-        "qiime2.plugins": ["q2_unassigner=" "q2_unassigner" ".plugin_setup:plugin"]
+        "qiime2.plugins": [
+            "q2_unassigner=" "q2_unassigner" ".plugin_setup:plugin"
+        ]  # noqa: E501
     },
     package_data={
         "q2_unassigner": ["citations.bib"],
