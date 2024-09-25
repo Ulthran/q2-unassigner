@@ -14,6 +14,7 @@ from qiime2.plugin.util import transform
 from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
 
 from q2_unassigner._methods import unassign
+from unassigner.parse import parse_results
 
 
 class UnassignTests(TestPluginBase):
@@ -30,5 +31,7 @@ class UnassignTests(TestPluginBase):
         seqs = DNAFASTAFormat(seqs_fp, mode='r')
         print(str(seqs))
         observed = unassign(seqs)
+
+        print(list(parse_results(open(str(observed), 'r'))))
 
         # no real output to check here, just check that the method runs without error

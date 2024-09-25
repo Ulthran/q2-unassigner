@@ -34,10 +34,17 @@ def unassign(
     seqs: DNAFASTAFormat,
 ) -> UnassignerStatsFmt:
     print("Starting unassigner...")
-    unassigner_output = UnassignerStatsFmt()
+    unassigner_output = UnassignerStatsDirFmt()
+    print(str(unassigner_output))
 
-    cmd = ["unassign", str(seqs), "--output_dir", str(Path(str(unassigner_output)).parents[0])]
+    cmd = ["unassign", str(seqs), "--output_dir", str(unassigner_output)]
     run_command(cmd)
 
     print("Unassigner output saved at:", unassigner_output)
+    from unassigner.parse import parse_results
+    import os
+    print(list(parse_results(open(str(Path(str(unassigner_output)) / "unassigner_output.tsv"), 'r'))))
+    # List files in the output directory
+    print("Files in output directory:")
+    print(os.listdir(Path(str(unassigner_output)).parents[0]))
     return unassigner_output
