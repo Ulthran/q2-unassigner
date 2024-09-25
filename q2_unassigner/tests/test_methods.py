@@ -11,10 +11,26 @@ import pandas.testing as pdt
 
 from qiime2.plugin.testing import TestPluginBase
 from qiime2.plugin.util import transform
-from q2_types.feature_table import BIOMV100Format
+from q2_types.feature_data import FeatureData, Sequence
+from q2_types.feature_table import FastaFormat
 
-from q2_unassigner._methods import duplicate_table
+from q2_unassigner._methods import unassign
 
+
+class UnassignTests(TestPluginBase):
+    package = "q2_unassigner.tests"
+
+    def test_unassign(self):
+        # test that the unassign method runs without error
+        # (for demonstration purposes)
+        seqs = transform(
+            self.get_data_path("gg10.fasta"),
+            from_type=FastaFormat,
+            to_type=FeatureData[Sequence],
+        )
+        observed = unassign(seqs)
+
+        # no real output to check here, just check that the method runs without error
 
 class DuplicateTableTests(TestPluginBase):
     package = "q2_unassigner.tests"

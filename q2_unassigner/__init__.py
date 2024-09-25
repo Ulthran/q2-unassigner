@@ -15,3 +15,8 @@ del get_versions
 from . import _version
 
 __version__ = _version.get_versions()["version"]
+
+from ._type import UnassignerStats
+from ._format import UnassignerStatsDirFmt, UnassignerStatsFmt
+
+__all__ = ["UnassignerStats", "UnassignerStatsDirFmt", "UnassignerStatsFmt"]
