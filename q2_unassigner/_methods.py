@@ -6,9 +6,11 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
+import skbio
 import subprocess as sp
 import tempfile
-from q2_types.feature_data import FeatureData, Sequence
+from pathlib import Path
+from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
 from q2_unassigner._format import UnassignerStatsDirFmt, UnassignerStatsFmt
 from q2_unassigner._type import UnassignerStats
 
@@ -29,23 +31,13 @@ def run_command(cmd):
 
 
 def unassign(
-    seqs: FeatureData[Sequence]
-) -> UnassignerStatsDirFmt:
+    seqs: DNAFASTAFormat,
+) -> UnassignerStatsFmt:
     print("Starting unassigner...")
-    #unassigner_dir = Path("./q2_unassigner/")
-    #unassigner_dir.mkdir(exist_ok=True)
-    #unassigner_input = unassigner_dir / "input.fasta"
-    #unassigner_output = unassigner_dir / "unassigner_output.tsv"
-    unassigner_output_dir = UnassignerStatsDirFmt()
-    unassigner_output_dir.mkdir(parents=True, exist_ok=True)
-    unassigner_input = tempfile.NamedTemporaryFile()
+    unassigner_output = UnassignerStatsFmt()
 
-    with open(unassigner_input, "w") as f:
-        for seq in seqs.view(Sequence):
-            f.write(f">{seq.metadata['id']}\n{str(seq)}\n")
-
-    cmd = ["unassign", str(unassigner_input), "--output_dir", str(unassigner_output_dir)]
+    cmd = ["unassign", str(seqs), "--output_dir", str(Path(str(unassigner_output)).parents[0])]
     run_command(cmd)
 
-    print("Unassigner output saved at:", unassigner_output_dir)
-    return unassigner_output_dir
+    print("Unassigner output saved at:", unassigner_output)
+    return unassigner_output
