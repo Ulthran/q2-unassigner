@@ -14,7 +14,9 @@ from qiime2.plugin.util import transform
 from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
 
 from q2_unassigner._methods import unassign
-from unassigner.parse import parse_results
+# TODO: Remove this once unassigner updates are pushed to conda/PyPi
+from q2_unassigner._format import parse_results
+#from unassigner.parse import parse_results
 
 
 class UnassignTests(TestPluginBase):
