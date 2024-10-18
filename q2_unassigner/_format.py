@@ -27,7 +27,9 @@ class UnassignerStatsFmt(model.TextFileFormat):
 # UnassignerStatsDirFmt = model.SingleFileDirectoryFormat(
 #    'UnassignerStatsDirFmt', 'unassigner_output.tsv', UnassignerStatsFmt)
 class UnassignerStatsDirFmt(model.DirectoryFormat):
-    unassigner_output = model.File("unassigner_output.tsv", format=UnassignerStatsFmt)
+    unassigner_output = model.File(
+        "unassigner_output.tsv", format=UnassignerStatsFmt
+    )
 
     def _validate_(self):
         self.unassigner_output.validate()

@@ -6,12 +6,8 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
-import pandas as pd
-import pandas.testing as pdt
-
 from qiime2.plugin.testing import TestPluginBase
-from qiime2.plugin.util import transform
-from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
+from q2_types.feature_data import DNAFASTAFormat
 
 from q2_unassigner._methods import unassign
 from unassigner.parse import parse_results
@@ -29,9 +25,12 @@ class UnassignTests(TestPluginBase):
         #    to_type=FeatureData[Sequence])
         seqs_fp = self.get_data_path("gg10.fasta")
         seqs = DNAFASTAFormat(seqs_fp, mode="r")
-        print(str(seqs))
         observed = unassign(seqs)
 
-        print(list(parse_results(open(observed.unassigner_output.path_maker(), "r"))))
+        parsed_results = list(
+            parse_results(open(observed.unassigner_output.path_maker(), "r"))
+        )
 
-        # no real output to check here, just check that the method runs without error
+        print("Parsed results: ", parsed_results)
+
+        self.assertEqual(len(parsed_results), 20)

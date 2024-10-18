@@ -6,13 +6,9 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
-import skbio
 import subprocess as sp
-import tempfile
-from pathlib import Path
-from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
-from q2_unassigner._format import UnassignerStatsDirFmt, UnassignerStatsFmt
-from q2_unassigner._type import UnassignerStats
+from q2_types.feature_data import DNAFASTAFormat
+from q2_unassigner._format import UnassignerStatsDirFmt
 
 
 def run_command(cmd):
@@ -35,28 +31,8 @@ def unassign(
 ) -> UnassignerStatsDirFmt:
     print("Starting unassigner...")
     unassigner_output = UnassignerStatsDirFmt()
-    print(str(unassigner_output))
 
     cmd = ["unassign", str(seqs), "--output_dir", str(unassigner_output.path)]
     run_command(cmd)
 
-    print("Unassigner output saved at:", unassigner_output)
-    from unassigner.parse import parse_results
-    import os
-
-    print(unassigner_output.unassigner_output.name)
-    print(vars(unassigner_output.unassigner_output))
-    print(
-        list(parse_results(open(unassigner_output.unassigner_output.path_maker(), "r")))
-    )
-    print(
-        list(
-            parse_results(
-                open(
-                    str(Path(str(unassigner_output.path)) / "unassigner_output.tsv"),
-                    "r",
-                )
-            )
-        )
-    )
     return unassigner_output

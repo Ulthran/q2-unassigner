@@ -28,7 +28,9 @@ plugin = Plugin(
 plugin.register_semantic_types(UnassignerStats)
 plugin.register_formats(UnassignerStatsFmt, UnassignerStatsDirFmt)
 plugin.register_artifact_class(
-    UnassignerStats, UnassignerStatsDirFmt, description="Unassigner stats output."
+    UnassignerStats,
+    UnassignerStatsDirFmt,
+    description="Unassigner stats output.",
 )
 
 plugin.methods.register_function(
@@ -38,7 +40,9 @@ plugin.methods.register_function(
     outputs=[("unassigned", UnassignerStats)],
     input_descriptions={"seqs": "The sequences to unassign."},
     parameter_descriptions={},
-    output_descriptions={"unassigned": "The unassigned sequences information."},
+    output_descriptions={
+        "unassigned": "The unassigned sequences information."
+    },
     name="Unassign sequences",
     description="Run unassigner on input sequences.",
     citations=[],

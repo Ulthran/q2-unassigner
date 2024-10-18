@@ -9,7 +9,6 @@
 import collections
 
 import pandas as pd
-import numpy as np
 import qiime2
 
 from .plugin_setup import plugin
@@ -20,18 +19,21 @@ _unassigner_stats_header = collections.OrderedDict(
         ("query_id", str),
         ("species", str),
         ("typestrain_id", str),
-        ("region_mismatches", int),
-        ("region_positions", int),
-        ("probability_incompatible", float),
+        ("region_mismatches", int | None),
+        ("region_positions", int | None),
+        ("probability_incompatible", float | None),
     ]
 )
 
 
 def _stats_to_df(ff):
-    df = pd.read_csv(str(ff), sep="\t", index_col=["query_id", "species"])
-    # Gets messed up by NAs for int/float values
-    # names=_unassigner_stats_header.keys(),
-    # dtype=_unassigner_stats_header)
+    df = pd.read_csv(
+        str(ff),
+        sep="\t",
+        index_col=["query_id", "species"],
+        names=_unassigner_stats_header.keys(),
+        dtype=_unassigner_stats_header,
+    )
     return df
 
 
