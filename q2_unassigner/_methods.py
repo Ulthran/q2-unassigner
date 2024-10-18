@@ -41,7 +41,8 @@ def unassign(
     cmd = ["unassign", str(seqs), "--output_dir", str(unassigner_output.path)]
 
     # Would love a more concise way to do this
-    # but I can't think of any other method for preserving the package's inbuilt defaults
+    # but I can't think of any other method for 
+    # preserving the package's inbuilt defaults
     if type_strain_fasta:
         cmd.extend(["--type_strain_fasta", type_strain_fasta])
     if threshold:
