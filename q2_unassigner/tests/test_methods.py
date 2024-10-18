@@ -14,9 +14,7 @@ from qiime2.plugin.util import transform
 from q2_types.feature_data import DNAFASTAFormat, FeatureData, Sequence
 
 from q2_unassigner._methods import unassign
-# TODO: Remove this once unassigner updates are pushed to conda/PyPi
-from q2_unassigner._format import parse_results
-#from unassigner.parse import parse_results
+from unassigner.parse import parse_results
 
 
 class UnassignTests(TestPluginBase):
@@ -25,15 +23,15 @@ class UnassignTests(TestPluginBase):
     def test_unassign(self):
         # test that the unassign method runs without error
         # (for demonstration purposes)
-        #seqs = transform(
+        # seqs = transform(
         #    self.get_data_path('gg10.fasta'),
         #    from_type=DNAFASTAFormat,
         #    to_type=FeatureData[Sequence])
         seqs_fp = self.get_data_path("gg10.fasta")
-        seqs = DNAFASTAFormat(seqs_fp, mode='r')
+        seqs = DNAFASTAFormat(seqs_fp, mode="r")
         print(str(seqs))
         observed = unassign(seqs)
 
-        print(list(parse_results(open(str(observed), 'r'))))
+        print(list(parse_results(open(observed.unassigner_output.path_maker(), "r"))))
 
         # no real output to check here, just check that the method runs without error

@@ -27,7 +27,9 @@ plugin = Plugin(
 
 plugin.register_semantic_types(UnassignerStats)
 plugin.register_formats(UnassignerStatsFmt, UnassignerStatsDirFmt)
-plugin.register_artifact_class(UnassignerStats, UnassignerStatsDirFmt, description="Unassigner stats output.")
+plugin.register_artifact_class(
+    UnassignerStats, UnassignerStatsDirFmt, description="Unassigner stats output."
+)
 
 plugin.methods.register_function(
     function=unassign,

@@ -8,32 +8,7 @@
 
 import qiime2.plugin.model as model
 from qiime2.plugin import ValidationError
-#from unassigner.parse import parse_results
-
-
-# TODO: Remove these once unassigner updates are pushed to conda/PyPi
-def cast_num_or_na(val, cast_func):
-    if val == "NA":
-        return None
-    return cast_func(val)
-
-
-def parse_results(f):
-    float_fields = ["probability_incompatible"]
-    int_fields = ["region_mismatches", "region_positions"]
-    header_line = next(f)
-    header_line = header_line.rstrip()
-    fields = header_line.split("\t")
-    for line in f:
-        line = line.rstrip()
-        vals = line.split("\t")
-        res = dict(zip(fields, vals))
-        for field, val in res.items():
-            if field in float_fields:
-                res[field] = cast_num_or_na(val, float)
-            elif field in int_fields:
-                res[field] = cast_num_or_na(val, int)
-        yield res
+from unassigner.parse import parse_results
 
 
 class UnassignerStatsFmt(model.TextFileFormat):
@@ -49,5 +24,10 @@ class UnassignerStatsFmt(model.TextFileFormat):
         self._check_records()
 
 
-UnassignerStatsDirFmt = model.SingleFileDirectoryFormat(
-    'UnassignerStatsDirFmt', 'unassigner_output.tsv', UnassignerStatsFmt)
+# UnassignerStatsDirFmt = model.SingleFileDirectoryFormat(
+#    'UnassignerStatsDirFmt', 'unassigner_output.tsv', UnassignerStatsFmt)
+class UnassignerStatsDirFmt(model.DirectoryFormat):
+    unassigner_output = model.File("unassigner_output.tsv", format=UnassignerStatsFmt)
+
+    def _validate_(self):
+        self.unassigner_output.validate()

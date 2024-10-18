@@ -9,4 +9,4 @@
 from qiime2.plugin import SemanticType
 
 
-UnassignerStats = SemanticType('UnassignerStats')
+UnassignerStats = SemanticType("UnassignerStats")
