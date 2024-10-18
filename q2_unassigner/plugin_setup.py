@@ -20,10 +20,8 @@ plugin = Plugin(
     version=__version__,
     website="https://github.com/PennChopMicrobiomeProgram/unassigner",
     package="q2_unassigner",
-    description=(
-        "Evaluate consistency with named bacterial species ",
-        "for short 16S rRNA marker gene sequences",
-    ),
+    description="""Evaluate consistency with named bacterial species for short
+ 16S rRNA marker gene sequences""",
     short_description="Run unassigner with QIIME2",
     citations=[citations["Tanes2024Unassigner"]],
 )
