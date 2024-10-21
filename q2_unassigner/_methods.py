@@ -6,24 +6,9 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
-import subprocess as sp
 from q2_types.feature_data import DNAFASTAFormat
 from q2_unassigner._format import UnassignerStatsDirFmt
-
-
-def run_command(cmd):
-    print(
-        "Running external command line application. This may print "
-        "messages to stdout and/or stderr."
-    )
-    print(
-        "The command being run is below. This command cannot "
-        "be manually re-run as it will depend on temporary files that "
-        "no longer exist."
-    )
-    print("\nCommand:", end=" ")
-    print(" ".join(cmd), end="\n\n")
-    sp.run(cmd, check=True)
+from unassigner.command import main as unassign_command
 
 
 def unassign(
@@ -56,6 +41,8 @@ def unassign(
     if verbose:
         cmd.append("--verbose")
 
-    run_command(cmd)
+    print(f"Running command: {str(cmd)}")
+    unassign_command(cmd)
+    print(f"Unassigner finished. Results in {str(unassigner_output.path)}")
 
     return unassigner_output

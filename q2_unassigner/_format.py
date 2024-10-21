@@ -12,24 +12,10 @@ from unassigner.parse import parse_results
 
 
 class UnassignerStatsFmt(model.TextFileFormat):
-
-    def _check_records(self):
-        with open(str(self)) as f:
-            try:
-                list(parse_results(f))
-            except Exception as e:
-                raise ValidationError(str(e))
-
-    def _validate_(self):
-        self._check_records()
+    pass
 
 
-# UnassignerStatsDirFmt = model.SingleFileDirectoryFormat(
-#    'UnassignerStatsDirFmt', 'unassigner_output.tsv', UnassignerStatsFmt)
 class UnassignerStatsDirFmt(model.DirectoryFormat):
     unassigner_output = model.File(
         "unassigner_output.tsv", format=UnassignerStatsFmt
     )
-
-    def _validate_(self):
-        self.unassigner_output.validate()

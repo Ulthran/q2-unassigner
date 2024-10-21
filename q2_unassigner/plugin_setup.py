@@ -70,9 +70,7 @@ plugin.methods.register_function(
         "soft_threshold": "Use soft threshold algorithm.",
         "verbose": "Print verbose output.",
     },
-    output_descriptions={
-        "unassigned": "The unassigned sequences information."
-    },
+    output_descriptions={"unassigned": "The unassigner output directory."},
     name="Unassign sequences",
     description="Run unassigner on input sequences.",
     citations=[],
