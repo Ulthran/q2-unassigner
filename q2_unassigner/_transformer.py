@@ -12,7 +12,7 @@ import pandas as pd
 import qiime2
 
 from .plugin_setup import plugin
-from ._format import UnassignerStatsFmt
+from ._format import UnassignerStatsFmt, UnassignerStatsDirFmt
 
 _unassigner_stats_header = collections.OrderedDict(
     [
@@ -45,3 +45,8 @@ def _1(ff: UnassignerStatsFmt) -> qiime2.Metadata:
 @plugin.register_transformer
 def _2(ff: UnassignerStatsFmt) -> pd.DataFrame:
     return _stats_to_df(ff)
+
+
+@plugin.register_transformer
+def _3(ff: UnassignerStatsDirFmt) -> pd.DataFrame:
+    return _stats_to_df(ff.unassigner_output)
