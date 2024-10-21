@@ -23,7 +23,7 @@ def unassign(
     print("Starting unassigner...")
     unassigner_output = UnassignerStatsDirFmt()
 
-    cmd = ["unassign", str(seqs), "--output_dir", str(unassigner_output.path)]
+    cmd = [str(seqs), "--output_dir", str(unassigner_output.path)]
 
     # Would love a more concise way to do this
     # but I can't think of any other method for
