@@ -39,6 +39,7 @@ plugin.methods.register_function(
     inputs={"seqs": FeatureData[Sequence]},
     parameters={
         "type_strain_fasta": Str,
+        "db_dir": Str,
         "threshold": Float
         % Range(0, 1, inclusive_start=True, inclusive_end=True),
         "ref_mismatch_positions": Str,
@@ -52,6 +53,11 @@ plugin.methods.register_function(
         "type_strain_fasta": (
             "Type strain sequences FASTA file. "
             "If the default file is not found, sequences are downloaded "
+            "and re-formatted automatically."
+        ),
+        "db_dir": (
+            "Directory containing the reference databases. "
+            "If the default directory is not found, the database is downloaded "
             "and re-formatted automatically."
         ),
         "threshold": (
@@ -70,9 +76,7 @@ plugin.methods.register_function(
         "soft_threshold": "Use soft threshold algorithm.",
         "verbose": "Print verbose output.",
     },
-    output_descriptions={
-        "unassigned": "The unassigned sequences information."
-    },
+    output_descriptions={"unassigned": "The unassigner output directory."},
     name="Unassign sequences",
     description="Run unassigner on input sequences.",
     citations=[],
