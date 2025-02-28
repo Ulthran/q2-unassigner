@@ -32,4 +32,7 @@ setup(
         "q2_unassigner.tests": ["data/*"],
     },
     zip_safe=False,
+    install_requires=[
+        "unassigner",
+    ]
 )
